@@ -1,0 +1,204 @@
+:root{--primary:#e74c3c;--primary-dark:#c0392b;--success:#27ae60;--danger:#e74c3c;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--text-light:#7f8c8d;--border:#dfe6e9;--shadow:0 4px 20px rgba(0,0,0,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Klee One','Yu Mincho','游明朝','Hiragino Mincho ProN',serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:720px;margin:0 auto;padding:20px 16px}
+header{text-align:center;padding:30px 0 20px}
+header h1{font-size:2em;color:var(--primary);letter-spacing:2px}
+header p{color:var(--text-light);margin-top:6px;font-size:.95em}
+.card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:28px;margin-bottom:20px}
+.section-title{font-size:1.05em;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-title::before{content:'';display:inline-block;width:4px;height:18px;background:var(--primary);border-radius:2px}
+
+.script-toggle{display:flex;gap:10px;flex-wrap:wrap}
+.script-toggle button{flex:1;min-width:100px;padding:10px 16px;border:2px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-size:1em;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.script-toggle button:hover{border-color:var(--primary);color:var(--primary)}
+.script-toggle button.active{background:var(--primary);border-color:var(--primary);color:#fff}
+
+.row-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.row-item{display:flex;align-items:center;gap:8px;padding:10px 12px;border:2px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;user-select:none}
+.row-item:hover{border-color:var(--primary);background:#fff5f5}
+.row-item.selected{border-color:var(--primary);background:#ffeaea}
+.row-check{width:20px;height:20px;border:2px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:12px;color:#fff}
+.row-item.selected .row-check{background:var(--primary);border-color:var(--primary)}
+.row-label{font-weight:600;font-size:.95em;line-height:1.3}
+.row-label small{display:block;font-weight:400;color:var(--text-light);font-size:.82em}
+
+.select-all-row{display:flex;gap:10px;margin-bottom:14px}
+.select-all-row button{padding:6px 16px;border:1.5px solid var(--border);border-radius:8px;background:var(--card);color:var(--text-light);font-size:.88em;cursor:pointer;transition:all .2s;font-family:inherit}
+.select-all-row button:hover{border-color:var(--primary);color:var(--primary)}
+
+.start-btn{display:block;width:100%;padding:16px;border:none;border-radius:12px;background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;font-size:1.2em;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all .3s;box-shadow:0 4px 15px rgba(231,76,60,.4);font-family:inherit}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(231,76,60,.5)}
+.start-btn:active{transform:translateY(0)}
+
+.kana-display{font-size:8em;line-height:1.2;padding:20px 0;min-height:200px;display:flex;align-items:center;justify-content:center;font-family:'Klee One','Yu Mincho','游明朝','Hiragino Mincho ProN',serif;font-weight:400}
+.test-area{text-align:center}
+
+.progress-bar{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.progress-track{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#e74c3c,#f39c12);border-radius:4px;transition:width .4s ease}
+.progress-text{font-size:.88em;color:var(--text-light);white-space:nowrap;font-weight:600}
+
+.score-bar{display:flex;justify-content:center;gap:24px;margin-bottom:16px;font-size:.95em}
+.score-item{display:flex;align-items:center;gap:6px;font-weight:600}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.dot-correct{background:var(--success)}.dot-wrong{background:var(--danger)}
+
+.kana-type-badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:.78em;font-weight:600;margin-bottom:6px}
+.badge-hira{background:#e8f8f5;color:#1abc9c}
+.badge-kata{background:#f0e6ff;color:#8e44ad}
+.badge-practice{background:#fff3cd;color:#856404}
+
+.input-area{display:flex;gap:10px;max-width:400px;margin:0 auto 16px}
+.input-area input{flex:1;padding:14px 18px;border:2.5px solid var(--border);border-radius:12px;font-size:1.2em;text-align:center;outline:none;transition:border-color .2s;text-transform:lowercase;font-family:'Segoe UI',sans-serif}
+.input-area input:focus{border-color:var(--primary)}
+.input-area input.correct{border-color:var(--success);background:#f0fff4}
+.input-area input.wrong{border-color:var(--danger);background:#fff5f5}
+.input-area button{padding:14px 24px;border:none;border-radius:12px;background:var(--primary);color:#fff;font-size:1em;font-weight:700;cursor:pointer;transition:background .2s;font-family:'Segoe UI',sans-serif}
+.input-area button:hover{background:var(--primary-dark)}
+
+.alt-hint{font-size:.82em;color:var(--text-light);margin-bottom:14px}
+.feedback{font-size:1.15em;font-weight:700;min-height:36px;margin-bottom:12px;transition:all .3s}
+.feedback.correct{color:var(--success)}.feedback.wrong{color:var(--danger)}
+
+.test-actions{display:flex;gap:10px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.test-actions button{padding:10px 24px;border:2px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-size:.92em;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.test-actions button:hover{border-color:var(--primary);color:var(--primary)}
+.btn-next{background:var(--primary)!important;border-color:var(--primary)!important;color:#fff!important}
+.btn-next:hover{background:var(--primary-dark)!important;color:#fff!important}
+
+.result-screen{text-align:center}
+.result-score{font-size:4em;font-weight:800;margin:20px 0 10px}
+.result-label{font-size:1.1em;color:var(--text-light);margin-bottom:24px}
+.result-detail{display:flex;justify-content:center;gap:32px;margin-bottom:28px;font-size:1em}
+.result-detail .num{font-size:1.8em;font-weight:800}
+.mistakes-section{text-align:left;margin-top:20px}
+.mistakes-section h3{font-size:1em;margin-bottom:12px;color:var(--text-light)}
+.mistake-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.mistake-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff5f5;border-radius:10px;border-left:4px solid var(--danger)}
+.mistake-item .mk-char{font-size:1.5em;font-weight:700;font-family:'Klee One','Yu Mincho',serif}
+.mistake-item .mk-info{font-size:.88em;color:var(--text-light)}
+.mistake-item .mk-info strong{color:var(--text)}
+
+/* 错题本 */
+.book-card{cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:14px}
+.book-card:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(0,0,0,.12)}
+.book-icon{font-size:2.4em}
+.book-text{flex:1}
+.book-text .book-title{font-size:1.1em;font-weight:700}
+.book-text .book-sub{font-size:.85em;color:var(--text-light);margin-top:2px}
+.book-badge{background:var(--primary);color:#fff;font-size:.82em;font-weight:700;padding:4px 10px;border-radius:20px;min-width:28px;text-align:center}
+
+.book-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;margin-bottom:8px;transition:all .2s}
+.book-item:hover{border-color:#ffb3b3;background:#fffafa}
+.book-item .bi-char{font-size:2em;min-width:50px;text-align:center;font-family:'Klee One','Yu Mincho',serif}
+.book-item .bi-info{flex:1}
+.book-item .bi-romaji{font-weight:700;font-size:1em}
+.book-item .bi-meta{font-size:.78em;color:var(--text-light);margin-top:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.book-item .bi-meta .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:.75em;font-weight:600}
+.tag-hira{background:#e8f8f5;color:#1abc9c}
+.tag-kata{background:#f0e6ff;color:#8e44ad}
+.streak-dots{display:inline-flex;gap:3px;vertical-align:middle}
+.streak-dot{width:10px;height:10px;border-radius:50%;border:2px solid #ccc;background:transparent;display:inline-block}
+.streak-dot.filled{background:var(--success);border-color:var(--success)}
+.bi-remove{width:32px;height:32px;border:2px solid var(--border);border-radius:8px;background:var(--card);color:var(--text-light);font-size:1em;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bi-remove:hover{border-color:var(--danger);color:var(--danger);background:#fff5f5}
+
+.book-empty{text-align:center;padding:50px 20px;color:var(--text-light)}
+.book-empty .empty-icon{font-size:3em;margin-bottom:12px}
+.book-stats{display:flex;justify-content:center;gap:24px;margin-bottom:18px;font-size:.92em}
+.book-stats span{font-weight:700}
+
+.book-actions{display:flex;flex-direction:column;gap:10px}
+.book-bottom-row{display:flex;gap:10px}
+.book-bottom-row button{flex:1;padding:12px;border:2px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;font-size:.92em}
+.book-bottom-row button:hover{border-color:var(--primary);color:var(--primary)}
+.book-bottom-row .btn-danger{color:var(--danger)}.book-bottom-row .btn-danger:hover{border-color:var(--danger);background:#fff5f5}
+
+/* ===== 五十音一览 ===== */
+.chart-toggle{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.chart-toggle button{flex:1;min-width:100px;padding:10px 16px;border:2px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-size:1em;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.chart-toggle button:hover{border-color:var(--primary);color:var(--primary)}
+.chart-toggle button.active{background:var(--primary);border-color:var(--primary);color:#fff}
+
+.chart-section{margin-bottom:10px}
+.chart-section + .chart-section{margin-top:16px}
+
+.collapse-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border:2px solid var(--border);border-radius:12px;background:var(--card);color:var(--text);font-size:1.05em;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
+.collapse-toggle:hover{border-color:var(--primary);color:var(--primary)}
+.collapse-toggle .arrow{transition:transform .3s;font-size:.8em}
+.collapse-toggle.open .arrow{transform:rotate(180deg)}
+.collapse-body{overflow:hidden;max-height:0;transition:max-height .35s ease}
+.collapse-body.open{max-height:2000px}
+
+.chart-row{display:flex;gap:8px;margin-bottom:8px}
+.chart-row-head{width:46px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--primary);font-size:1.3em;border-right:2px solid var(--border);font-family:'Klee One','Yu Mincho',serif}
+.chart-row-cells{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.chart-row-cells.cols-3{grid-template-columns:repeat(3,1fr)}
+.chart-row-cells.cols-6{grid-template-columns:repeat(6,1fr)}
+.chart-cell{padding:12px 0;font-size:1.7em;border:2px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);cursor:pointer;transition:all .2s;font-family:'Klee One','Yu Mincho',serif;line-height:1.2;text-align:center}
+.chart-cell .k{display:block}
+.chart-cell:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-2px);box-shadow:0 4px 12px rgba(231,76,60,.15)}
+.chart-cell .romaji{display:block;font-size:.45em;color:var(--text-light);font-family:'Segoe UI',sans-serif;font-weight:600;margin-top:2px}
+.chart-cell:hover .romaji{color:var(--primary)}
+.chart-cell.empty{visibility:hidden;pointer-events:none}
+
+.chart-flow{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px}
+.chart-flow .chart-cell{font-size:1.5em;padding:10px 0}
+
+.chart-note{font-size:.82em;color:var(--text-light);margin-top:12px;line-height:1.6}
+
+/* ===== 笔画弹窗 ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(44,62,80,.5);display:flex;align-items:center;justify-content:center;z-index:100;padding:16px;animation:fadeIn .2s ease}
+.modal{background:var(--card);border-radius:18px;width:100%;max-width:380px;padding:24px;box-shadow:0 12px 50px rgba(0,0,0,.25);animation:popIn .25s ease}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
+.modal-title{font-size:1.05em;font-weight:700;display:flex;align-items:center;gap:10px}
+.modal-title .mk-char{font-size:2.2em;font-family:'Klee One','Yu Mincho',serif;line-height:1}
+.modal-title .mk-meta{font-size:.8em;color:var(--text-light);font-weight:600}
+.modal-close{width:34px;height:34px;border:2px solid var(--border);border-radius:9px;background:var(--card);color:var(--text-light);font-size:1.1em;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.modal-close:hover{border-color:var(--danger);color:var(--danger)}
+
+.stroke-stage{display:flex;justify-content:center;padding:8px 0 4px}
+.stroke-svg{width:210px;max-width:100%;height:auto;display:block}
+.stroke-svg .kvg-path{fill:none;stroke:var(--text);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.stroke-svg .stroke-num{fill:#aaa;font-size:11px;font-weight:700;font-family:'Segoe UI',sans-serif}
+
+.modal-romaji{text-align:center;font-size:1.4em;font-weight:700;margin:10px 0 2px}
+.modal-stroke-count{text-align:center;font-size:.85em;color:var(--text-light);margin-bottom:14px}
+.stroke-actions{display:flex;gap:10px}
+.stroke-actions button{flex:1;padding:11px;border:2px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;font-size:.92em}
+.stroke-actions button:hover{border-color:var(--primary);color:var(--primary)}
+.stroke-actions .btn-replay{background:var(--primary);border-color:var(--primary);color:#fff}
+.stroke-actions .btn-replay:hover{background:var(--primary-dark);color:#fff}
+
+/* 笔画数字开关 */
+.stroke-num-toggle{display:flex;justify-content:center;margin-bottom:12px;font-size:.85em;color:var(--text-light)}
+.stroke-num-toggle label{display:flex;align-items:center;gap:6px;cursor:pointer;font-family:'Segoe UI',sans-serif}
+.stroke-num-toggle input{accent-color:var(--primary)}
+
+/* 田字格（虚线） */
+.stroke-svg .tian-grid rect,.stroke-svg .tian-grid line{stroke:#c5cdd2;stroke-width:1;stroke-dasharray:5 4;fill:none}
+
+/* 组合字（拗音/外来语音）分格显示 */
+.combo-stage{display:flex;justify-content:center;padding:14px 0 4px}
+.combo-grid{display:flex;gap:8px}
+.combo-cell{width:88px;height:88px;border:1.5px dashed #c5cdd2;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Klee One','Yu Mincho',serif;color:var(--text)}
+.combo-cell.big{font-size:3.6em}
+.combo-cell.small{font-size:2em}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+
+.hidden{display:none!important}
+
+@media(max-width:520px){
+  .container{padding:12px 10px}.card{padding:20px 16px}
+  .kana-display{font-size:5.5em;min-height:150px}
+  header h1{font-size:1.5em}
+  .row-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+  .score-bar{gap:16px;font-size:.85em}
+  .book-item{gap:8px;padding:10px}.book-item .bi-char{font-size:1.6em;min-width:40px}
+  .chart-cell{font-size:1.4em;padding:10px 0}
+  .chart-row-head{width:38px;font-size:1.1em}
+  .stroke-svg{width:180px}
+}
