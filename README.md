@@ -38,12 +38,6 @@ kana-romaji-quiz/
 └── README.md
 ```
 
-## 技术栈
-
-- HTML (17.5%)
-- CSS (28.6%)
-- JavaScript (53.9%)
-
 ## 许可证
 
 GNU General Public License v3.0 - 详见 [LICENSE](LICENSE) 文件
@@ -91,12 +85,6 @@ kana-romaji-quiz/
 ├── js/           # Scripts
 └── README.md
 ```
-
-## Tech Stack
-
-- HTML (17.5%)
-- CSS (28.6%)
-- JavaScript (53.9%)
 
 ## License
 
