@@ -12,8 +12,8 @@
 <body>
 <div class="container">
   <header>
-    <h1>🇯🇵 日语五十音测试</h1>
-    <p>罗马字输入练习 · 手写体显示 · 错题本 · 五十音一览</p>
+    <h1>五十音小测试</h1>
+    <p>五十音练习 · 手写笔画显示 · 手写体显示 · 错题本 · 五十音一览</p>
   </header>
 
   <!-- ===== 设置界面 ===== -->
@@ -23,7 +23,7 @@
       <div class="script-toggle" id="scriptToggle">
         <button data-script="hiragana" class="active">平假名</button>
         <button data-script="katakana">片假名</button>
-        <button data-script="both">两者都练</button>
+        <button data-script="both">我全都要</button>
       </div>
     </div>
     <div class="card">
@@ -46,7 +46,10 @@
         <div class="row-grid" id="youonRowGrid" style="margin-top:14px"></div>
       </div>
     </div>
-    <div class="card book-card" onclick="openChart()">
+    <button class="start-btn" onclick="startTest()">开始测试 ▶</button>
+
+    <div class="big_card" style="display: flex;gap: 20px">
+          <div class="card book-card" onclick="openChart()">
       <div class="book-icon">📖</div>
       <div class="book-text">
         <div class="book-title">五十音一览</div>
@@ -61,7 +64,8 @@
       </div>
       <div class="book-badge" id="bookCountBadge">0</div>
     </div>
-    <button class="start-btn" onclick="startTest()">开始测试 ▶</button>
+    </div>
+    
   </div>
 
   <!-- ===== 测试界面 ===== -->
@@ -167,7 +171,7 @@
         <div class="chart-flow" id="gaiChart"></div>
       </div>
 
-      <div class="chart-note">💡 点击任意假名可查看笔顺动画</div>
+      <!-- <div class="chart-note">💡 点击任意假名可查看笔顺动画</div> -->
       <button class="start-btn" style="margin-top:16px" onclick="goSetup()">← 返回设置</button>
     </div>
   </div>
