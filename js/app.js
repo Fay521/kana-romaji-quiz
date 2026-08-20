@@ -543,24 +543,36 @@ function toggleStrokeNums(checked){
 
 function replayStroke(){playStroke();}
 
-// 匀速播放：左右两栏并行，各栏内按长度分配时长
+function durOf(p){return Math.min(2200,Math.max(450,Math.round(p.getTotalLength()*STROKE_SPEED)));}
+
+// 播放单个面板的笔画（从 startDelay 开始）
+function animateGroup(group,startDelay){
+  group.paths.forEach(({p})=>{
+    const len=p.getTotalLength();
+    p.style.transition='none';
+    p.style.strokeDasharray=len;
+    p.style.strokeDashoffset=len;
+  });
+  void group.svg.offsetWidth; // 强制回流，让重置生效
+  let delay=startDelay;
+  group.paths.forEach(({p})=>{
+    const dur=durOf(p);
+    p.style.transition='stroke-dashoffset '+dur+'ms linear';
+    setTimeout(()=>{p.style.strokeDashoffset='0';},delay);
+    delay+=dur+120;
+  });
+}
+
+function groupDuration(group){
+  return group.paths.reduce((s,{p})=>s+durOf(p)+120,0);
+}
+
+// 逐个播放：先平假名，后片假名
 function playStroke(){
+  let delay=0;
   strokeGroups.forEach(g=>{
-    g.paths.forEach(({p})=>{
-      const len=p.getTotalLength();
-      p.style.transition='none';
-      p.style.strokeDasharray=len;
-      p.style.strokeDashoffset=len;
-    });
-    void g.svg.offsetWidth; // 强制回流，让重置生效
-    let delay=0;
-    g.paths.forEach(({p})=>{
-      const len=p.getTotalLength();
-      const dur=Math.min(2200,Math.max(450,Math.round(len*STROKE_SPEED)));
-      p.style.transition='stroke-dashoffset '+dur+'ms linear';
-      setTimeout(()=>{p.style.strokeDashoffset='0';},delay);
-      delay+=dur+120;
-    });
+    animateGroup(g,delay);
+    delay+=groupDuration(g);
   });
 }
 
