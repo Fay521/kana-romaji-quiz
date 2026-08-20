@@ -18,7 +18,7 @@
 }
 
 body {
-  font-family: 'Klee One', 'Yu Mincho', '游明朝', 'Hiragino Mincho ProN', serif;
+  font-family: 'Segoe UI', 'SimSun', '宋体', sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh
@@ -162,7 +162,8 @@ header p {
   display: block;
   font-weight: 400;
   color: var(--text-light);
-  font-size: .82em
+  font-size: .82em;
+  font-family: 'Klee One', 'Yu Mincho', 'Hiragino Mincho ProN', 'SimSun', '宋体', serif
 }
 
 .select-all-row {
@@ -296,7 +297,8 @@ header p {
   border-radius: 20px;
   font-size: .78em;
   font-weight: 600;
-  margin-bottom: 6px
+  margin-bottom: 6px;
+  font-family: 'Klee One', 'Yu Mincho', 'Hiragino Mincho ProN', 'SimSun', '宋体', serif
 }
 
 .badge-hira {
@@ -495,6 +497,10 @@ header p {
   color: var(--text)
 }
 
+.mistake-item .mk-info small {
+  font-family: 'Klee One', 'Yu Mincho', 'Hiragino Mincho ProN', 'SimSun', '宋体', serif
+}
+
 /* 错题本 */
 .book-card {
   cursor: pointer;
@@ -592,12 +598,14 @@ header p {
 
 .tag-hira {
   background: #e8f8f5;
-  color: #1abc9c
+  color: #1abc9c;
+  font-family: 'Klee One', 'Yu Mincho', 'Hiragino Mincho ProN', 'SimSun', '宋体', serif
 }
 
 .tag-kata {
   background: #f0e6ff;
-  color: #8e44ad
+  color: #8e44ad;
+  font-family: 'Klee One', 'Yu Mincho', 'Hiragino Mincho ProN', 'SimSun', '宋体', serif
 }
 
 .streak-dots {
