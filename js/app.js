@@ -326,7 +326,8 @@ function openChart(){
 function cellEl(h,k,romajiArr){
   const b=document.createElement('button');
   b.className='chart-cell';
-  const kana=(h?'<span class="hi">'+h+'</span>':'')+'<span class="ka">'+k+'</span>';
+  const sep=(h&&k&&Array.from(h).length>1)?'<span class="sep">丨</span>':'';
+  const kana=(h?'<span class="hi">'+h+'</span>':'')+sep+'<span class="ka">'+k+'</span>';
   b.innerHTML='<span class="k">'+kana+'</span><span class="romaji">'+romajiArr[0]+'</span>';
   b.addEventListener('click',()=>openStrokeModal({h:h||null,k:k||null,romaji:romajiArr}));
   return b;

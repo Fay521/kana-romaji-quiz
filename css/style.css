@@ -843,6 +843,10 @@ header p {
   gap: 4px
 }
 
+.chart-cell .sep {
+  color: var(--text-light)
+}
+
 .chart-cell:hover {
   border-color: var(--primary);
   color: var(--primary);
