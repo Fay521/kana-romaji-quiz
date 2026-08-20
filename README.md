@@ -2,7 +2,7 @@
 
 中文 丨 [English](#english)
 
-## 📱 在线预览
+## 在线预览
 
 在线体验: [https://krq.liht.cc/](https://krq.liht.cc/)
 
@@ -56,7 +56,7 @@ GNU General Public License v3.0 - 详见 [LICENSE](LICENSE) 文件
 
 ## English
 
-## 📱 Live Preview
+## Live Preview
 
 Try it online: [https://krq.liht.cc/](https://krq.liht.cc/)
 
