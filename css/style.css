@@ -837,7 +837,10 @@ header p {
 }
 
 .chart-cell .k {
-  display: block
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px
 }
 
 .chart-cell:hover {
@@ -1090,6 +1093,62 @@ header p {
 }
 
 .combo-cell.small {
+  font-size: 2em
+}
+
+/* 双栏（左平假名 右片假名） */
+.dual-stage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 8px 0 4px
+}
+
+.dual-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px
+}
+
+.dual-label {
+  font-size: .8em;
+  color: var(--text-light);
+  font-weight: 600
+}
+
+.dual-panel .stroke-svg {
+  width: 150px
+}
+
+.dual-panel .combo-cell {
+  width: 64px;
+  height: 64px
+}
+
+.dual-panel .combo-cell.big {
+  font-size: 2.6em
+}
+
+.dual-panel .combo-cell.small {
+  font-size: 1.5em
+}
+
+.dual-stage.single .stroke-svg {
+  width: 210px
+}
+
+.dual-stage.single .combo-cell {
+  width: 88px;
+  height: 88px
+}
+
+.dual-stage.single .combo-cell.big {
+  font-size: 3.6em
+}
+
+.dual-stage.single .combo-cell.small {
   font-size: 2em
 }
 

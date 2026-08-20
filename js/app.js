@@ -2,7 +2,6 @@
 let curScript='hiragana', selRows=new Set(['a','ka','sa','ta','na','ha','ma','ya','ra','wa']);
 let questions=[], curIdx=0, correct=0, wrong=0, curMistakes=[], answered=false, curKana=null;
 let practiceMode=false, mastered=0;
-let chartScript='hiragana';
 
 // ===== localStorage 错题本 =====
 const BK='kana_mistake_v1';
@@ -322,31 +321,24 @@ function openChart(){
   showScreen('chartScreen');
   renderChart();
 }
-function setChartScript(s){
-  chartScript=s;
-  document.querySelectorAll('#chartToggle button').forEach(b=>b.classList.toggle('active',b.dataset.script===s));
-  renderChart();
-}
 
-// 由平假名取当前展示字符（平/片）
-function dispChar(h){return chartScript==='hiragana'?h:kdLookup[h].k;}
-function romajiOf(h){return kdLookup[h].a;}
-
-function cellEl(char,romajiArr,type){
+// 单元格：平假名 + 片假名 + 罗马字（h 可为 null，如外来语音）
+function cellEl(h,k,romajiArr){
   const b=document.createElement('button');
   b.className='chart-cell';
-  b.innerHTML='<span class="k">'+char+'</span><span class="romaji">'+romajiArr[0]+'</span>';
-  b.addEventListener('click',()=>openStrokeModal({char,romaji:romajiArr,type}));
+  const kana=(h?'<span class="hi">'+h+'</span>':'')+'<span class="ka">'+k+'</span>';
+  b.innerHTML='<span class="k">'+kana+'</span><span class="romaji">'+romajiArr[0]+'</span>';
+  b.addEventListener('click',()=>openStrokeModal({h:h||null,k:k||null,romaji:romajiArr}));
   return b;
 }
 
-// 渲染一个「行」：头部 + 若干字格
-function rowEl(headChar,cells,type){
+// 渲染一个「行」：头部（平假名） + 若干字格
+function rowEl(headChar,cells){
   const row=document.createElement('div');
   row.className='chart-row';
   const head=document.createElement('div');
   head.className='chart-row-head';
-  head.textContent=chartScript==='hiragana'?headChar:kdLookup[headChar].k;
+  head.textContent=headChar;
   row.appendChild(head);
   const cellBox=document.createElement('div');
   cellBox.className='chart-row-cells'+(cells.length>5?' cols-6':'');
@@ -354,7 +346,8 @@ function rowEl(headChar,cells,type){
     if(c===null){
       const empty=document.createElement('div');empty.className='chart-cell empty';cellBox.appendChild(empty);
     }else{
-      cellBox.appendChild(cellEl(dispChar(c),romajiOf(c),type));
+      const e=kdLookup[c];
+      cellBox.appendChild(cellEl(e.h,e.k,e.a));
     }
   });
   row.appendChild(cellBox);
@@ -371,8 +364,7 @@ function renderChart(){
 function renderSeion(){
   const box=document.getElementById('seionChart');box.innerHTML='';
   SEION_GRID.forEach(r=>{
-    const head=r[0];
-    box.appendChild(rowEl(head,r,chartScript));
+    box.appendChild(rowEl(r[0],r));
   });
 }
 
@@ -381,16 +373,15 @@ function renderDakuonHandakuon(){
   DAKUON_ROWS.concat(HANDAKUON_ROWS).forEach(rowId=>{
     const items=KD.filter(k=>k.r===rowId);
     const cells=items.map(k=>k.h);
-    box.appendChild(rowEl(items[0].h,cells,chartScript));
+    box.appendChild(rowEl(items[0].h,cells));
   });
 }
 
 function renderYouon(){
   const box=document.getElementById('youonChart');box.innerHTML='';
-  // 按行分组（每行 3 个：a/u/o）
   const groups={};
   YOUON.forEach(y=>{
-    const key=chartScript==='hiragana'?y.h[0]:y.k[0]; // 首字作为行标识
+    const key=y.h[0]; // 平假名首字作为行标识
     if(!groups[key])groups[key]=[];
     groups[key].push(y);
   });
@@ -399,13 +390,12 @@ function renderYouon(){
     row.className='chart-row';
     const head=document.createElement('div');
     head.className='chart-row-head';
-    head.textContent=chartScript==='hiragana'?g[0].h[0]:g[0].k[0];
+    head.textContent=g[0].h[0];
     row.appendChild(head);
     const cellBox=document.createElement('div');
     cellBox.className='chart-row-cells cols-3';
     g.forEach(y=>{
-      const c=chartScript==='hiragana'?y.h:y.k;
-      cellBox.appendChild(cellEl(c,y.a,chartScript));
+      cellBox.appendChild(cellEl(y.h,y.k,y.a));
     });
     row.appendChild(cellBox);
     box.appendChild(row);
@@ -414,12 +404,10 @@ function renderYouon(){
 
 function renderGai(){
   const sec=document.getElementById('gaiSection');
-  if(chartScript!=='katakana'){sec.classList.add('hidden');return;}
   sec.classList.remove('hidden');
   const box=document.getElementById('gaiChart');box.innerHTML='';
   GAI.forEach(g=>{
-    const b=cellEl(g.k,g.a,'katakana');
-    box.appendChild(b);
+    box.appendChild(cellEl(null,g.k,g.a));
   });
 }
 
@@ -433,57 +421,82 @@ function toggleCollapse(btnId,bodyId){
 }
 
 // ===== 笔画弹窗 =====
-let strokePaths=[];     // 当前弹窗的笔画 path
-let strokeNumTexts=[];  // 笔顺编号 text 元素
+let strokeGroups=[];     // [{svg, paths:[{p}], nums:[text]}]
 let showStrokeNums=true; // 是否显示笔顺编号（默认显示）
 const STROKE_SPEED=10;   // 每单位长度的播放毫秒数（越大越慢）
 
-function typeBadge(type){
-  return type==='hiragana'?'<span class="tag tag-hira">平假名</span>':'<span class="tag tag-kata">片假名</span>';
-}
-
-function openStrokeModal(entry){
-  document.getElementById('modalChar').textContent=entry.char;
-  document.getElementById('modalMeta').innerHTML=typeBadge(entry.type);
-  document.getElementById('modalRomaji').textContent=entry.romaji.join(' / ');
+function openStrokeModal(sound){
+  const pair=(sound.h?sound.h:'')+(sound.h&&sound.k?' / ':'')+(sound.k?sound.k:'');
+  document.getElementById('modalChar').textContent=pair;
+  document.getElementById('modalMeta').innerHTML=(sound.h?'<span class="tag tag-hira">平假名</span>':'')+(sound.k?'<span class="tag tag-kata">片假名</span>':'');
+  document.getElementById('modalRomaji').textContent=sound.romaji.join(' / ');
   document.getElementById('strokeModal').classList.remove('hidden');
-  if(Array.from(entry.char).length>1){renderCombo(entry);}else{renderStroke(entry);}
+  renderDual(sound);
 }
 
 function closeStrokeModal(){
   document.getElementById('strokeModal').classList.add('hidden');
-  const svg=document.getElementById('strokeSvg');if(svg)svg.innerHTML='';
-  const grid=document.getElementById('comboGrid');if(grid)grid.innerHTML='';
-  strokePaths=[];strokeNumTexts=[];
+  document.getElementById('dualStage').innerHTML='';
+  strokeGroups=[];
+}
+
+function renderDual(sound){
+  const stage=document.getElementById('dualStage');
+  stage.innerHTML='';
+  strokeGroups=[];
+  const panels=[];
+  if(sound.h)panels.push({char:sound.h,label:'平假名'});
+  if(sound.k)panels.push({char:sound.k,label:'片假名'});
+  if(panels.length===1)stage.classList.add('single');else stage.classList.remove('single');
+  let hasStroke=false;
+  panels.forEach(p=>{
+    const panel=document.createElement('div');
+    panel.className='dual-panel';
+    const label=document.createElement('div');
+    label.className='dual-label';
+    label.textContent=p.label;
+    panel.appendChild(label);
+    const content=document.createElement('div');
+    content.className='dual-content';
+    panel.appendChild(content);
+    if(Array.from(p.char).length>1){renderComboInto(content,p.char);}
+    else{renderStrokeInto(content,p.char);hasStroke=true;}
+    stage.appendChild(panel);
+  });
+  const numWrap=document.getElementById('numToggleWrap');
+  const replay=document.getElementById('replayBtn');
+  if(hasStroke){
+    numWrap.classList.remove('hidden');
+    replay.classList.remove('hidden');
+    const total=strokeGroups.reduce((s,g)=>s+g.paths.length,0);
+    document.getElementById('modalStrokeCount').textContent='共 '+total+' 画';
+    playStroke();
+  }else{
+    numWrap.classList.add('hidden');
+    replay.classList.add('hidden');
+    document.getElementById('modalStrokeCount').textContent='组合字';
+  }
 }
 
 // 组合字（拗音/外来语音）：分格显示，无笔画
-function renderCombo(entry){
-  document.getElementById('strokeStage').classList.add('hidden');
-  document.getElementById('numToggleWrap').classList.add('hidden');
-  document.getElementById('replayBtn').classList.add('hidden');
-  document.getElementById('comboStage').classList.remove('hidden');
-  document.getElementById('modalStrokeCount').textContent='组合字 · '+(entry.type==='hiragana'?'平假名':'片假名');
-  const grid=document.getElementById('comboGrid');grid.innerHTML='';
-  Array.from(entry.char).forEach((c,i)=>{
+function renderComboInto(container,char){
+  const grid=document.createElement('div');
+  grid.className='combo-grid';
+  Array.from(char).forEach((c,i)=>{
     const cell=document.createElement('div');
     cell.className='combo-cell'+(i===0?' big':' small');
     cell.textContent=c;
     grid.appendChild(cell);
   });
+  container.appendChild(grid);
 }
 
 // 单字：田字格 + 笔顺动画
-function renderStroke(entry){
-  document.getElementById('comboStage').classList.add('hidden');
-  document.getElementById('strokeStage').classList.remove('hidden');
-  document.getElementById('numToggleWrap').classList.remove('hidden');
-  document.getElementById('replayBtn').classList.remove('hidden');
-
-  const svg=document.getElementById('strokeSvg');
-  svg.innerHTML='';
+function renderStrokeInto(container,char){
   const NS='http://www.w3.org/2000/svg';
-
+  const svg=document.createElementNS(NS,'svg');
+  svg.setAttribute('class','stroke-svg');
+  svg.setAttribute('viewBox','0 0 109 109');
   // 田字格（虚线）：外框 + 横竖中线
   const grid=document.createElementNS(NS,'g');
   grid.setAttribute('class','tian-grid');
@@ -497,20 +510,18 @@ function renderStroke(entry){
   h.setAttribute('x1','3');h.setAttribute('y1','54.5');h.setAttribute('x2','106');h.setAttribute('y2','54.5');
   grid.appendChild(h);
   svg.appendChild(grid);
-
   // 笔画
-  const data=KANA_STROKES[entry.char]||[];
-  strokePaths=[];strokeNumTexts=[];
+  const data=KANA_STROKES[char]||[];
+  const paths=[];const nums=[];
   data.forEach(d=>{
     const p=document.createElementNS(NS,'path');
     p.setAttribute('d',d);
     p.setAttribute('class','kvg-path');
     svg.appendChild(p);
-    strokePaths.push({p});
+    paths.push({p});
   });
-
   // 笔顺编号
-  strokePaths.forEach(({p},i)=>{
+  paths.forEach(({p},i)=>{
     const s=p.getPointAtLength(0);
     const t=document.createElementNS(NS,'text');
     t.setAttribute('class','stroke-num');
@@ -519,36 +530,37 @@ function renderStroke(entry){
     t.textContent=i+1;
     if(!showStrokeNums)t.style.display='none';
     svg.appendChild(t);
-    strokeNumTexts.push(t);
+    nums.push(t);
   });
-
-  document.getElementById('modalStrokeCount').textContent='共 '+data.length+' 画 · '+(entry.type==='hiragana'?'平假名':'片假名');
-  playStroke();
+  container.appendChild(svg);
+  strokeGroups.push({svg,paths,nums});
 }
 
 function toggleStrokeNums(checked){
   showStrokeNums=checked;
-  strokeNumTexts.forEach(t=>{t.style.display=checked?'':'none';});
+  strokeGroups.forEach(g=>g.nums.forEach(t=>{t.style.display=checked?'':'none';}));
 }
 
 function replayStroke(){playStroke();}
 
+// 匀速播放：左右两栏并行，各栏内按长度分配时长
 function playStroke(){
-  const svg=document.getElementById('strokeSvg');
-  strokePaths.forEach(({p})=>{
-    const len=p.getTotalLength();
-    p.style.transition='none';
-    p.style.strokeDasharray=len;
-    p.style.strokeDashoffset=len;
-  });
-  void svg.offsetWidth; // 强制回流，让重置生效
-  let delay=0;
-  strokePaths.forEach(({p})=>{
-    const len=p.getTotalLength();
-    const dur=Math.min(2200,Math.max(450,Math.round(len*STROKE_SPEED)));
-    p.style.transition='stroke-dashoffset '+dur+'ms linear';
-    setTimeout(()=>{p.style.strokeDashoffset='0';},delay);
-    delay+=dur+120; // 笔画间 120ms 间隔
+  strokeGroups.forEach(g=>{
+    g.paths.forEach(({p})=>{
+      const len=p.getTotalLength();
+      p.style.transition='none';
+      p.style.strokeDasharray=len;
+      p.style.strokeDashoffset=len;
+    });
+    void g.svg.offsetWidth; // 强制回流，让重置生效
+    let delay=0;
+    g.paths.forEach(({p})=>{
+      const len=p.getTotalLength();
+      const dur=Math.min(2200,Math.max(450,Math.round(len*STROKE_SPEED)));
+      p.style.transition='stroke-dashoffset '+dur+'ms linear';
+      setTimeout(()=>{p.style.strokeDashoffset='0';},delay);
+      delay+=dur+120;
+    });
   });
 }
 

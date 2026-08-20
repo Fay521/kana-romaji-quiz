@@ -140,11 +140,6 @@
   <!-- ===== 五十音一览界面 ===== -->
   <div id="chartScreen" class="hidden">
     <div class="card">
-      <div class="chart-toggle" id="chartToggle">
-        <button data-script="hiragana" class="active" onclick="setChartScript('hiragana')">平假名</button>
-        <button data-script="katakana" onclick="setChartScript('katakana')">片假名</button>
-      </div>
-
       <div class="section-title">清音（五十音）</div>
       <div id="seionChart"></div>
 
@@ -187,12 +182,7 @@
       </div>
       <button class="modal-close" onclick="closeStrokeModal()">✕</button>
     </div>
-    <div class="stroke-stage" id="strokeStage">
-      <svg class="stroke-svg" id="strokeSvg" viewBox="0 0 109 109"></svg>
-    </div>
-    <div class="combo-stage hidden" id="comboStage">
-      <div class="combo-grid" id="comboGrid"></div>
-    </div>
+    <div class="dual-stage" id="dualStage"></div>
     <div class="modal-romaji" id="modalRomaji"></div>
     <div class="modal-stroke-count" id="modalStrokeCount"></div>
     <div class="stroke-num-toggle" id="numToggleWrap">
