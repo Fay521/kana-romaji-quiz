@@ -1087,7 +1087,7 @@ header p {
   fill: none
 }
 
-/* 组合字（拗音/外来语音）分格显示 */
+/* 组合字（拗音/外来语）分格显示 */
 .combo-stage {
   display: flex;
   justify-content: center;

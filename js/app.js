@@ -52,7 +52,7 @@ function streakDots(s){let o='';for(let i=0;i<3;i++)o+='<span class="streak-dot'
 // ===== 屏幕切换 =====
 // 各屏幕页头标题（一览页用专属标题，其余用默认）
 const PAGE_HEADER={
-  chartScreen:['五十音一览','平假名 · 片假名 · 笔顺动画 · 拗音 · 外来语音']
+  chartScreen:['五十音一览','平假名 · 片假名 · 笔顺动画 · 拗音 · 外来语']
 };
 const DEFAULT_HEADER=['五十音小测试','五十音练习 · 手写笔画显示 · 手写体显示 · 错题本 · 五十音一览'];
 
@@ -331,7 +331,7 @@ function openChart(){
   renderChart();
 }
 
-// 单元格：平假名 + 片假名 + 罗马字（h 可为 null，如外来语音）
+// 单元格：平假名 + 片假名 + 罗马字（h 可为 null，如外来语）
 function cellEl(h,k,romajiArr){
   const b=document.createElement('button');
   b.className='chart-cell';
@@ -433,7 +433,7 @@ function toggleCollapse(btnId,bodyId){
 // ===== 笔画弹窗 =====
 let strokeGroups=[];     // [{svg, paths:[{p}], nums:[text]}]
 let showStrokeNums=true; // 是否显示笔顺编号（默认显示）
-const STROKE_SPEED=10;   // 每单位长度的播放毫秒数（越大越慢）
+const STROKE_SPEED=5;   // 每单位长度的播放毫秒数（越大越慢）
 
 function openStrokeModal(sound){
   document.getElementById('modalRomaji').textContent=sound.romaji.join(' / ');
@@ -482,7 +482,7 @@ function renderDual(sound){
   }
 }
 
-// 组合字（拗音/外来语音）：分格显示，无笔画
+// 组合字（拗音/外来语）：分格显示，无笔画
 function renderComboInto(container,char){
   const grid=document.createElement('div');
   grid.className='combo-grid';
@@ -564,7 +564,7 @@ function animateGroup(group,startDelay){
     p.style.strokeDasharray=len;
     p.style.strokeDashoffset=len;
   });
-  void group.svg.offsetWidth; // 强制回流，让重置生效
+  void group.svg.offsetWidth;
   let delay=startDelay;
   group.paths.forEach(({p})=>{
     const dur=durOf(p);
