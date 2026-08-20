@@ -50,9 +50,18 @@ function timeAgo(ts){
 function streakDots(s){let o='';for(let i=0;i<3;i++)o+='<span class="streak-dot'+(i<s?' filled':'')+'"></span>';return o;}
 
 // ===== 屏幕切换 =====
+// 各屏幕页头标题（一览页用专属标题，其余用默认）
+const PAGE_HEADER={
+  chartScreen:['五十音一览','平假名 · 片假名 · 笔顺动画 · 拗音 · 外来语音']
+};
+const DEFAULT_HEADER=['五十音小测试','五十音练习 · 手写笔画显示 · 手写体显示 · 错题本 · 五十音一览'];
+
 function showScreen(id){
   ['setupScreen','testScreen','resultScreen','mistakeBookScreen','chartScreen'].forEach(s=>document.getElementById(s).classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
+  const h=PAGE_HEADER[id]||DEFAULT_HEADER;
+  document.getElementById('pageTitle').textContent=h[0];
+  document.getElementById('pageSubtitle').textContent=h[1];
 }
 function goSetup(){showScreen('setupScreen');updateBookBadge();}
 

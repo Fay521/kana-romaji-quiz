@@ -1218,6 +1218,29 @@ header p {
   display: none !important
 }
 
+/* 页脚小尾巴 */
+.site-footer {
+  text-align: center;
+  padding: 8px 16px 24px;
+  font-size: .9em;
+  color: var(--text-light)
+}
+
+.site-footer a {
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color .2s
+}
+
+.site-footer a:hover {
+  color: var(--primary)
+}
+
+.site-footer .sep {
+  margin: 0 8px;
+  color: var(--border)
+}
+
 @media(max-width:520px) {
   .container {
     padding: 12px 10px
