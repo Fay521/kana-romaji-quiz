@@ -426,9 +426,6 @@ let showStrokeNums=true; // 是否显示笔顺编号（默认显示）
 const STROKE_SPEED=10;   // 每单位长度的播放毫秒数（越大越慢）
 
 function openStrokeModal(sound){
-  const pair=(sound.h?sound.h:'')+(sound.h&&sound.k?' / ':'')+(sound.k?sound.k:'');
-  document.getElementById('modalChar').textContent=pair;
-  document.getElementById('modalMeta').innerHTML=(sound.h?'<span class="tag tag-hira">平假名</span>':'')+(sound.k?'<span class="tag tag-kata">片假名</span>':'');
   document.getElementById('modalRomaji').textContent=sound.romaji.join(' / ');
   document.getElementById('strokeModal').classList.remove('hidden');
   renderDual(sound);
