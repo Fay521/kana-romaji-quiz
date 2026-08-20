@@ -1,6 +1,6 @@
 # 五十音测试 / Kana Romaji Quiz
 
-[English](#english) | 中文
+中文 丨 [English](#english)
 
 ## 📱 在线预览
 
