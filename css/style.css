@@ -1129,6 +1129,23 @@ header p {
   font-weight: 600
 }
 
+.panel-replay {
+  padding: 4px 12px;
+  font-size: .78em;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all .2s;
+  font-family: inherit
+}
+
+.panel-replay:hover {
+  border-color: var(--primary);
+  color: var(--primary)
+}
+
 .dual-panel .stroke-svg {
   width: 200px
 }

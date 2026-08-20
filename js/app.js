@@ -461,16 +461,13 @@ function renderDual(sound){
     stage.appendChild(panel);
   });
   const numWrap=document.getElementById('numToggleWrap');
-  const replay=document.getElementById('replayBtn');
   if(hasStroke){
     numWrap.classList.remove('hidden');
-    replay.classList.remove('hidden');
     const total=strokeGroups.reduce((s,g)=>s+g.paths.length,0);
     document.getElementById('modalStrokeCount').textContent='共 '+total+' 画';
     playStroke();
   }else{
     numWrap.classList.add('hidden');
-    replay.classList.add('hidden');
     document.getElementById('modalStrokeCount').textContent='组合字';
   }
 }
@@ -530,7 +527,14 @@ function renderStrokeInto(container,char){
     nums.push(t);
   });
   container.appendChild(svg);
-  strokeGroups.push({svg,paths,nums});
+  const group={svg,paths,nums};
+  strokeGroups.push(group);
+  // 单独重播该假名的按钮
+  const btn=document.createElement('button');
+  btn.className='panel-replay';
+  btn.textContent='↻ 重播';
+  btn.addEventListener('click',()=>replayGroup(group));
+  container.appendChild(btn);
 }
 
 function toggleStrokeNums(checked){
@@ -563,6 +567,8 @@ function animateGroup(group,startDelay){
 function groupDuration(group){
   return group.paths.reduce((s,{p})=>s+durOf(p)+120,0);
 }
+
+function replayGroup(group){animateGroup(group,0);}
 
 // 逐个播放：先平假名，后片假名
 function playStroke(){
