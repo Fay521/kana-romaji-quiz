@@ -1,12 +1,12 @@
 # 五十音测试 / Kana Romaji Quiz
 
-五十音学习小工具 ✧٩(ˊωˋ*)و✧
+一个五十音学习小工具 ✧٩(ˊωˋ*)و✧
 
 中文 丨 [English](#english)
 
 ## 在线预览
 
-在线体验 👉 [https://krq.liht.cc/](https://krq.liht.cc/)
+在线体验  [https://krq.liht.cc/](https://krq.liht.cc/)
 
 ## 介绍
 
@@ -14,13 +14,13 @@
 
 ## 功能
 
-- ✒️ **假名笔画动画**：田字格 + 逐笔描摹，平假名 / 片假名左右对照
-- 📚 **错题本**：答错自动收录，专练易错字，连续答对自动移出
-- 📖 **五十音一览**：清音、浊音、半浊音、拗音、外来语音一应俱全
-- 🎹 **罗马字输入**：支持多种写法（shi/si、chi/ti、fu/hu…）
-- 📊 **进度跟踪** & 错题回顾
-- 🖥️ **简洁清爽**：纯前端，打开即用，无需构建
-- 🧩 **开源**：想怎么改就怎么改
+-  **假名笔画动画**：田字格 + 逐笔描摹，平假名 / 片假名左右对照
+-  **错题本**：答错自动收录，专练易错字，连续答对自动移出
+-  **五十音一览**：清音、浊音、半浊音、拗音、外来语音一应俱全
+-  **罗马字输入**：支持多种写法（shi/si、chi/ti、fu/hu…）
+-  **进度跟踪** & 错题回顾
+-  **简洁清爽**：纯前端，打开即用，无需构建
+-  **开源**：想怎么改就怎么改
 
 ## 快速开始
 
@@ -64,7 +64,7 @@ GNU General Public License v3.0 - 详见 [LICENSE](LICENSE) 文件
 
 发现问题或有想法？欢迎提 issue 或 PR 呀～ ฅ^•ﻌ•^ฅ
 
-**热烈欢迎感兴趣的大佬前来提 PR！** ٩(๑❛ᴗ❛๑)۶ 无论是修 bug、加功能、美化界面，还是改进翻译，都非常欢迎～ 一起把这个小工具变得更好吧 (ง •̀_•́)ง✨
+**热烈欢迎感兴趣的大佬前来提 PR！** ٩(๑❛ᴗ❛๑)۶ 无论是修 bug、加功能、美化界面，还是改进翻译，都非常欢迎～ 一起把这个小工具变得更好吧 (ง •̀_•́)ง
 
 ---
 
@@ -74,7 +74,7 @@ A cute little tool for learning Japanese kana (๑˃̵ᴗ˂̵)
 
 ### Live Preview
 
-Try it online 👉 [https://krq.liht.cc/](https://krq.liht.cc/)
+Try it online  [https://krq.liht.cc/](https://krq.liht.cc/)
 
 ### Overview
 
@@ -82,13 +82,13 @@ A lightweight web quiz for practicing Japanese kana (hiragana & katakana) and ro
 
 ### Features
 
-- ✒️ **Animated stroke order**: dashed 田字格 grid, strokes drawn one by one; hiragana & katakana shown side by side
-- 📚 **Mistake book**: wrong answers are collected automatically so you can drill the tricky ones; answering correctly several times removes them
-- 📖 **Complete kana chart**: seion, dakuon, handakuon, yōon and foreign katakana sounds
-- 🎹 **Flexible romaji input**: multiple romanizations accepted (shi/si, chi/ti, fu/hu, …)
-- 📊 **Progress tracking** & mistake review
-- 🖥️ **Clean & simple**: pure frontend, just open it — no build step
-- 🧩 **Open source**: tweak it however you like
+-  **Animated stroke order**: dashed 田字格 grid, strokes drawn one by one; hiragana & katakana shown side by side
+-  **Mistake book**: wrong answers are collected automatically so you can drill the tricky ones; answering correctly several times removes them
+-  **Complete kana chart**: seion, dakuon, handakuon, yōon and foreign katakana sounds
+-  **Flexible romaji input**: multiple romanizations accepted (shi/si, chi/ti, fu/hu, …)
+-  **Progress tracking** & mistake review
+-  **Clean & simple**: pure frontend, just open it — no build step
+-  **Open source**: tweak it however you like
 
 ### Getting Started
 
@@ -132,4 +132,4 @@ GNU General Public License v3.0 — see [LICENSE](LICENSE) for details
 
 Found a bug or have an idea? Issues and PRs are always welcome! ฅ^•ﻌ•^ฅ
 
-**Calling all contributors — PRs are very welcome!** ٩(๑❛ᴗ❛๑)۶ Bug fixes, new features, UI polish, or better translations — every contribution counts. Let's make this little tool even better together (ง •̀_•́)ง✨
+**Calling all contributors — PRs are very welcome!** ٩(๑❛ᴗ❛๑)۶ Bug fixes, new features, UI polish, or better translations — every contribution counts. Let's make this little tool even better together (ง •̀_•́)ง
