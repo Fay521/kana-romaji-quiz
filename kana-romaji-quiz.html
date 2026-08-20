@@ -7,141 +7,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  :root{--primary:#e74c3c;--primary-dark:#c0392b;--success:#27ae60;--danger:#e74c3c;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--text-light:#7f8c8d;--border:#dfe6e9;--shadow:0 4px 20px rgba(0,0,0,.08)}
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Klee One','Yu Mincho','游明朝','Hiragino Mincho ProN',serif;background:var(--bg);color:var(--text);min-height:100vh}
-  .container{max-width:720px;margin:0 auto;padding:20px 16px}
-  header{text-align:center;padding:30px 0 20px}
-  header h1{font-size:2em;color:var(--primary);letter-spacing:2px}
-  header p{color:var(--text-light);margin-top:6px;font-size:.95em}
-  .card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:28px;margin-bottom:20px}
-  .section-title{font-size:1.05em;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-  .section-title::before{content:'';display:inline-block;width:4px;height:18px;background:var(--primary);border-radius:2px}
-
-  .script-toggle{display:flex;gap:10px;flex-wrap:wrap}
-  .script-toggle button{flex:1;min-width:100px;padding:10px 16px;border:2px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-size:1em;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
-  .script-toggle button:hover{border-color:var(--primary);color:var(--primary)}
-  .script-toggle button.active{background:var(--primary);border-color:var(--primary);color:#fff}
-
-  .row-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
-  .row-item{display:flex;align-items:center;gap:8px;padding:10px 12px;border:2px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;user-select:none}
-  .row-item:hover{border-color:var(--primary);background:#fff5f5}
-  .row-item.selected{border-color:var(--primary);background:#ffeaea}
-  .row-check{width:20px;height:20px;border:2px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:12px;color:#fff}
-  .row-item.selected .row-check{background:var(--primary);border-color:var(--primary)}
-  .row-label{font-weight:600;font-size:.95em;line-height:1.3}
-  .row-label small{display:block;font-weight:400;color:var(--text-light);font-size:.82em}
-
-  .select-all-row{display:flex;gap:10px;margin-bottom:14px}
-  .select-all-row button{padding:6px 16px;border:1.5px solid var(--border);border-radius:8px;background:var(--card);color:var(--text-light);font-size:.88em;cursor:pointer;transition:all .2s;font-family:inherit}
-  .select-all-row button:hover{border-color:var(--primary);color:var(--primary)}
-
-  .start-btn{display:block;width:100%;padding:16px;border:none;border-radius:12px;background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;font-size:1.2em;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all .3s;box-shadow:0 4px 15px rgba(231,76,60,.4);font-family:inherit}
-  .start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(231,76,60,.5)}
-  .start-btn:active{transform:translateY(0)}
-
-  .kana-display{font-size:8em;line-height:1.2;padding:20px 0;min-height:200px;display:flex;align-items:center;justify-content:center;font-family:'Klee One','Yu Mincho','游明朝','Hiragino Mincho ProN',serif;font-weight:400}
-  .test-area{text-align:center}
-
-  .progress-bar{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-  .progress-track{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden}
-  .progress-fill{height:100%;background:linear-gradient(90deg,#e74c3c,#f39c12);border-radius:4px;transition:width .4s ease}
-  .progress-text{font-size:.88em;color:var(--text-light);white-space:nowrap;font-weight:600}
-
-  .score-bar{display:flex;justify-content:center;gap:24px;margin-bottom:16px;font-size:.95em}
-  .score-item{display:flex;align-items:center;gap:6px;font-weight:600}
-  .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
-  .dot-correct{background:var(--success)}.dot-wrong{background:var(--danger)}
-
-  .kana-type-badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:.78em;font-weight:600;margin-bottom:6px}
-  .badge-hira{background:#e8f8f5;color:#1abc9c}
-  .badge-kata{background:#f0e6ff;color:#8e44ad}
-  .badge-practice{background:#fff3cd;color:#856404}
-
-  .input-area{display:flex;gap:10px;max-width:400px;margin:0 auto 16px}
-  .input-area input{flex:1;padding:14px 18px;border:2.5px solid var(--border);border-radius:12px;font-size:1.2em;text-align:center;outline:none;transition:border-color .2s;text-transform:lowercase;font-family:'Segoe UI',sans-serif}
-  .input-area input:focus{border-color:var(--primary)}
-  .input-area input.correct{border-color:var(--success);background:#f0fff4}
-  .input-area input.wrong{border-color:var(--danger);background:#fff5f5}
-  .input-area button{padding:14px 24px;border:none;border-radius:12px;background:var(--primary);color:#fff;font-size:1em;font-weight:700;cursor:pointer;transition:background .2s;font-family:'Segoe UI',sans-serif}
-  .input-area button:hover{background:var(--primary-dark)}
-
-  .alt-hint{font-size:.82em;color:var(--text-light);margin-bottom:14px}
-  .feedback{font-size:1.15em;font-weight:700;min-height:36px;margin-bottom:12px;transition:all .3s}
-  .feedback.correct{color:var(--success)}.feedback.wrong{color:var(--danger)}
-
-  .test-actions{display:flex;gap:10px;justify-content:center;margin-top:8px;flex-wrap:wrap}
-  .test-actions button{padding:10px 24px;border:2px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-size:.92em;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
-  .test-actions button:hover{border-color:var(--primary);color:var(--primary)}
-  .btn-next{background:var(--primary)!important;border-color:var(--primary)!important;color:#fff!important}
-  .btn-next:hover{background:var(--primary-dark)!important;color:#fff!important}
-
-  .result-screen{text-align:center}
-  .result-score{font-size:4em;font-weight:800;margin:20px 0 10px}
-  .result-label{font-size:1.1em;color:var(--text-light);margin-bottom:24px}
-  .result-detail{display:flex;justify-content:center;gap:32px;margin-bottom:28px;font-size:1em}
-  .result-detail .num{font-size:1.8em;font-weight:800}
-  .mistakes-section{text-align:left;margin-top:20px}
-  .mistakes-section h3{font-size:1em;margin-bottom:12px;color:var(--text-light)}
-  .mistake-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
-  .mistake-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff5f5;border-radius:10px;border-left:4px solid var(--danger)}
-  .mistake-item .mk-char{font-size:1.5em;font-weight:700;font-family:'Klee One','Yu Mincho',serif}
-  .mistake-item .mk-info{font-size:.88em;color:var(--text-light)}
-  .mistake-item .mk-info strong{color:var(--text)}
-
-  /* 错题本 */
-  .book-card{cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:14px}
-  .book-card:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(0,0,0,.12)}
-  .book-icon{font-size:2.4em}
-  .book-text{flex:1}
-  .book-text .book-title{font-size:1.1em;font-weight:700}
-  .book-text .book-sub{font-size:.85em;color:var(--text-light);margin-top:2px}
-  .book-badge{background:var(--primary);color:#fff;font-size:.82em;font-weight:700;padding:4px 10px;border-radius:20px;min-width:28px;text-align:center}
-
-  .book-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;margin-bottom:8px;transition:all .2s}
-  .book-item:hover{border-color:#ffb3b3;background:#fffafa}
-  .book-item .bi-char{font-size:2em;min-width:50px;text-align:center;font-family:'Klee One','Yu Mincho',serif}
-  .book-item .bi-info{flex:1}
-  .book-item .bi-romaji{font-weight:700;font-size:1em}
-  .book-item .bi-meta{font-size:.78em;color:var(--text-light);margin-top:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .book-item .bi-meta .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:.75em;font-weight:600}
-  .tag-hira{background:#e8f8f5;color:#1abc9c}
-  .tag-kata{background:#f0e6ff;color:#8e44ad}
-  .streak-dots{display:inline-flex;gap:3px;vertical-align:middle}
-  .streak-dot{width:10px;height:10px;border-radius:50%;border:2px solid #ccc;background:transparent;display:inline-block}
-  .streak-dot.filled{background:var(--success);border-color:var(--success)}
-  .bi-remove{width:32px;height:32px;border:2px solid var(--border);border-radius:8px;background:var(--card);color:var(--text-light);font-size:1em;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .bi-remove:hover{border-color:var(--danger);color:var(--danger);background:#fff5f5}
-
-  .book-empty{text-align:center;padding:50px 20px;color:var(--text-light)}
-  .book-empty .empty-icon{font-size:3em;margin-bottom:12px}
-  .book-stats{display:flex;justify-content:center;gap:24px;margin-bottom:18px;font-size:.92em}
-  .book-stats span{font-weight:700}
-
-  .book-actions{display:flex;flex-direction:column;gap:10px}
-  .book-bottom-row{display:flex;gap:10px}
-  .book-bottom-row button{flex:1;padding:12px;border:2px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;font-size:.92em}
-  .book-bottom-row button:hover{border-color:var(--primary);color:var(--primary)}
-  .book-bottom-row .btn-danger{color:var(--danger)}.book-bottom-row .btn-danger:hover{border-color:var(--danger);background:#fff5f5}
-
-  .hidden{display:none!important}
-
-  @media(max-width:520px){
-    .container{padding:12px 10px}.card{padding:20px 16px}
-    .kana-display{font-size:5.5em;min-height:150px}
-    header h1{font-size:1.5em}
-    .row-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
-    .score-bar{gap:16px;font-size:.85em}
-    .book-item{gap:8px;padding:10px}.book-item .bi-char{font-size:1.6em;min-width:40px}
-  }
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="container">
   <header>
     <h1>🇯🇵 日语五十音测试</h1>
-    <p>罗马字输入练习 · 手写体显示 · 错题本</p>
+    <p>罗马字输入练习 · 手写体显示 · 错题本 · 五十音一览</p>
   </header>
 
   <!-- ===== 设置界面 ===== -->
@@ -161,6 +33,25 @@
         <button onclick="selectAll(false)">全部取消</button>
       </div>
       <div class="row-grid" id="rowGrid"></div>
+      <button class="collapse-toggle" id="dakuonRowToggle" onclick="toggleCollapse('dakuonRowToggle','dakuonRowBody')" style="margin-top:14px">
+        <span>浊音・半浊音</span><span class="arrow">▼</span>
+      </button>
+      <div class="collapse-body" id="dakuonRowBody">
+        <div class="row-grid" id="dakuonRowGrid" style="margin-top:14px"></div>
+      </div>
+      <button class="collapse-toggle" id="youonRowToggle" onclick="toggleCollapse('youonRowToggle','youonRowBody')" style="margin-top:14px">
+        <span>拗音</span><span class="arrow">▼</span>
+      </button>
+      <div class="collapse-body" id="youonRowBody">
+        <div class="row-grid" id="youonRowGrid" style="margin-top:14px"></div>
+      </div>
+    </div>
+    <div class="card book-card" onclick="openChart()">
+      <div class="book-icon">📖</div>
+      <div class="book-text">
+        <div class="book-title">五十音一览</div>
+        <div class="book-sub">查看全部假名与笔顺</div>
+      </div>
     </div>
     <div class="card book-card" onclick="openMistakeBook()">
       <div class="book-icon">📚</div>
@@ -190,7 +81,7 @@
         <div class="kana-display" id="kanaDisplay"></div>
         <div class="alt-hint">💡 chi可输ti，tsu可输tu，shi→si，fu→hu，ji→zi 等多种罗马字均可</div>
         <div class="input-area">
-          <input type="text" id="romajiInput" placeholder="输入罗马字" autocomplete="off" autocapitalize="off" spellcheck="false">
+          <input type="text" id="romajiInput" placeholder="  " autocomplete="off" autocapitalize="off" spellcheck="false">
           <button onclick="checkAnswer()">✓</button>
         </div>
         <div class="feedback" id="feedback"></div>
@@ -241,325 +132,77 @@
       </div>
     </div>
   </div>
+
+  <!-- ===== 五十音一览界面 ===== -->
+  <div id="chartScreen" class="hidden">
+    <div class="card">
+      <div class="chart-toggle" id="chartToggle">
+        <button data-script="hiragana" class="active" onclick="setChartScript('hiragana')">平假名</button>
+        <button data-script="katakana" onclick="setChartScript('katakana')">片假名</button>
+      </div>
+
+      <div class="section-title">清音（五十音）</div>
+      <div id="seionChart"></div>
+
+      <div class="chart-section">
+        <button class="collapse-toggle" id="dakuonToggle" onclick="toggleCollapse('dakuonToggle','dakuonBody')">
+          <span>浊音・半浊音</span><span class="arrow">▼</span>
+        </button>
+        <div class="collapse-body" id="dakuonBody">
+          <div id="dakuonChart" style="margin-top:16px"></div>
+        </div>
+      </div>
+
+      <div class="chart-section">
+        <button class="collapse-toggle" id="youonToggle" onclick="toggleCollapse('youonToggle','youonBody')">
+          <span>拗音</span><span class="arrow">▼</span>
+        </button>
+        <div class="collapse-body" id="youonBody">
+          <div id="youonChart" style="margin-top:16px"></div>
+        </div>
+      </div>
+
+      <div class="chart-section hidden" id="gaiSection">
+        <div class="section-title">外来语音（片假名）</div>
+        <div class="chart-flow" id="gaiChart"></div>
+      </div>
+
+      <div class="chart-note">💡 点击任意假名可查看笔顺动画</div>
+      <button class="start-btn" style="margin-top:16px" onclick="goSetup()">← 返回设置</button>
+    </div>
+  </div>
 </div>
 
-<script>
-// ===== 假名数据 =====
-const KD=[
-  {h:'あ',k:'ア',a:['a'],r:'a'},{h:'い',k:'イ',a:['i'],r:'a'},{h:'う',k:'ウ',a:['u'],r:'a'},{h:'え',k:'エ',a:['e'],r:'a'},{h:'お',k:'オ',a:['o'],r:'a'},
-  {h:'か',k:'カ',a:['ka'],r:'ka'},{h:'き',k:'キ',a:['ki'],r:'ka'},{h:'く',k:'ク',a:['ku'],r:'ka'},{h:'け',k:'ケ',a:['ke'],r:'ka'},{h:'こ',k:'コ',a:['ko'],r:'ka'},
-  {h:'さ',k:'サ',a:['sa'],r:'sa'},{h:'し',k:'シ',a:['shi','si'],r:'sa'},{h:'す',k:'ス',a:['su'],r:'sa'},{h:'せ',k:'セ',a:['se'],r:'sa'},{h:'そ',k:'ソ',a:['so'],r:'sa'},
-  {h:'た',k:'タ',a:['ta'],r:'ta'},{h:'ち',k:'チ',a:['chi','ti'],r:'ta'},{h:'つ',k:'ツ',a:['tsu','tu'],r:'ta'},{h:'て',k:'テ',a:['te'],r:'ta'},{h:'と',k:'ト',a:['to'],r:'ta'},
-  {h:'な',k:'ナ',a:['na'],r:'na'},{h:'に',k:'ニ',a:['ni'],r:'na'},{h:'ぬ',k:'ヌ',a:['nu'],r:'na'},{h:'ね',k:'ネ',a:['ne'],r:'na'},{h:'の',k:'ノ',a:['no'],r:'na'},
-  {h:'は',k:'ハ',a:['ha'],r:'ha'},{h:'ひ',k:'ヒ',a:['hi'],r:'ha'},{h:'ふ',k:'フ',a:['fu','hu'],r:'ha'},{h:'へ',k:'ヘ',a:['he'],r:'ha'},{h:'ほ',k:'ホ',a:['ho'],r:'ha'},
-  {h:'ま',k:'マ',a:['ma'],r:'ma'},{h:'み',k:'ミ',a:['mi'],r:'ma'},{h:'む',k:'ム',a:['mu'],r:'ma'},{h:'め',k:'メ',a:['me'],r:'ma'},{h:'も',k:'モ',a:['mo'],r:'ma'},
-  {h:'や',k:'ヤ',a:['ya'],r:'ya'},{h:'ゆ',k:'ユ',a:['yu'],r:'ya'},{h:'よ',k:'ヨ',a:['yo'],r:'ya'},
-  {h:'ら',k:'ラ',a:['ra'],r:'ra'},{h:'り',k:'リ',a:['ri'],r:'ra'},{h:'る',k:'ル',a:['ru'],r:'ra'},{h:'れ',k:'レ',a:['re'],r:'ra'},{h:'ろ',k:'ロ',a:['ro'],r:'ra'},
-  {h:'わ',k:'ワ',a:['wa'],r:'wa'},{h:'を',k:'ヲ',a:['wo','o'],r:'wa'},{h:'ん',k:'ン',a:['n','nn'],r:'wa'},
-  {h:'が',k:'ガ',a:['ga'],r:'ga'},{h:'ぎ',k:'ギ',a:['gi'],r:'ga'},{h:'ぐ',k:'グ',a:['gu'],r:'ga'},{h:'げ',k:'ゲ',a:['ge'],r:'ga'},{h:'ご',k:'ゴ',a:['go'],r:'ga'},
-  {h:'ざ',k:'ザ',a:['za'],r:'za'},{h:'じ',k:'ジ',a:['ji','zi'],r:'za'},{h:'ず',k:'ズ',a:['zu'],r:'za'},{h:'ぜ',k:'ゼ',a:['ze'],r:'za'},{h:'ぞ',k:'ゾ',a:['zo'],r:'za'},
-  {h:'だ',k:'ダ',a:['da'],r:'da'},{h:'ぢ',k:'ヂ',a:['ji','di','zi'],r:'da'},{h:'づ',k:'ヅ',a:['zu','du','dzu'],r:'da'},{h:'で',k:'デ',a:['de'],r:'da'},{h:'ど',k:'ド',a:['do'],r:'da'},
-  {h:'ば',k:'バ',a:['ba'],r:'ba'},{h:'び',k:'ビ',a:['bi'],r:'ba'},{h:'ぶ',k:'ブ',a:['bu'],r:'ba'},{h:'べ',k:'ベ',a:['be'],r:'ba'},{h:'ぼ',k:'ボ',a:['bo'],r:'ba'},
-  {h:'ぱ',k:'パ',a:['pa'],r:'pa'},{h:'ぴ',k:'ピ',a:['pi'],r:'pa'},{h:'ぷ',k:'プ',a:['pu'],r:'pa'},{h:'ぺ',k:'ペ',a:['pe'],r:'pa'},{h:'ぽ',k:'ポ',a:['po'],r:'pa'}
-];
-const RI=[
-  {id:'a',name:'a行',pv:'あいうえお'},{id:'ka',name:'ka行',pv:'かきくけこ'},{id:'sa',name:'sa行',pv:'さしすせそ'},
-  {id:'ta',name:'ta行',pv:'たちつてと'},{id:'na',name:'na行',pv:'なにぬねの'},{id:'ha',name:'ha行',pv:'はひふへほ'},
-  {id:'ma',name:'ma行',pv:'まみむめも'},{id:'ya',name:'ya行',pv:'や　ゆ　よ'},{id:'ra',name:'ra行',pv:'らりるれろ'},
-  {id:'wa',name:'wa行',pv:'わを　　ん'},{id:'ga',name:'ga行',pv:'がぎぐげご'},{id:'za',name:'za行',pv:'ざじずぜぞ'},
-  {id:'da',name:'da行',pv:'だぢづでど'},{id:'ba',name:'ba行',pv:'ばびぶべぼ'},{id:'pa',name:'pa行',pv:'ぱぴぷぺぽ'}
-];
+<!-- ===== 笔画弹窗 ===== -->
+<div class="modal-overlay hidden" id="strokeModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">
+        <span class="mk-char" id="modalChar"></span>
+        <span class="mk-meta" id="modalMeta"></span>
+      </div>
+      <button class="modal-close" onclick="closeStrokeModal()">✕</button>
+    </div>
+    <div class="stroke-stage" id="strokeStage">
+      <svg class="stroke-svg" id="strokeSvg" viewBox="0 0 109 109"></svg>
+    </div>
+    <div class="combo-stage hidden" id="comboStage">
+      <div class="combo-grid" id="comboGrid"></div>
+    </div>
+    <div class="modal-romaji" id="modalRomaji"></div>
+    <div class="modal-stroke-count" id="modalStrokeCount"></div>
+    <div class="stroke-num-toggle" id="numToggleWrap">
+      <label><input type="checkbox" id="strokeNumToggle" checked onchange="toggleStrokeNums(this.checked)"> 显示笔画数字</label>
+    </div>
+    <div class="stroke-actions">
+      <button class="btn-replay" id="replayBtn" onclick="replayStroke()">▶ 重播</button>
+      <button onclick="closeStrokeModal()">关闭</button>
+    </div>
+  </div>
+</div>
 
-// ===== 状态 =====
-let curScript='hiragana', selRows=new Set(['a','ka','sa','ta','na','ha','ma','ya','ra','wa']);
-let questions=[], curIdx=0, correct=0, wrong=0, curMistakes=[], answered=false, curKana=null;
-let practiceMode=false, mastered=0;
-
-// ===== localStorage 错题本 =====
-const BK='kana_mistake_v1';
-function loadBook(){try{const d=localStorage.getItem(BK);return d?JSON.parse(d):{}}catch(e){return{}}}
-function saveBook(b){try{localStorage.setItem(BK,JSON.stringify(b))}catch(e){}}
-function getBookList(){
-  const book=loadBook();
-  return Object.values(book).sort((a,b)=>b.wrongCount-a.wrongCount||b.lastTime-a.lastTime);
-}
-function getBookCount(){return Object.keys(loadBook()).length}
-
-function addMistake(char,type,answers){
-  const book=loadBook(),key=char+'_'+type;
-  if(!book[key]) book[key]={char,type,answers,wrongCount:0,streak:0,lastTime:0};
-  book[key].wrongCount++;
-  book[key].streak=0;
-  book[key].lastTime=Date.now();
-  book[key].answers=answers;
-  saveBook(book);
-  updateBookBadge();
-}
-function recordCorrect(char,type){
-  const book=loadBook(),key=char+'_'+type;
-  if(book[key]){
-    book[key].streak++;
-    if(book[key].streak>=3){delete book[key];saveBook(book);updateBookBadge();return true;}
-    saveBook(book);
-  }
-  return false;
-}
-function removeMistake(char,type){const book=loadBook();delete book[char+'_'+type];saveBook(book);updateBookBadge();}
-function clearBook(){localStorage.removeItem(BK);updateBookBadge();}
-
-function updateBookBadge(){
-  const n=getBookCount();
-  document.getElementById('bookCountBadge').textContent=n;
-}
-
-function timeAgo(ts){
-  if(!ts)return'';
-  const d=Date.now()-ts,m=Math.floor(d/60000),h=Math.floor(d/3600000),dy=Math.floor(d/86400000);
-  if(m<1)return'刚刚';if(m<60)return m+'分钟前';if(h<24)return h+'小时前';if(dy<30)return dy+'天前';
-  return new Date(ts).toLocaleDateString('zh-CN');
-}
-
-function streakDots(s){let o='';for(let i=0;i<3;i++)o+='<span class="streak-dot'+(i<s?' filled':'')+'"></span>';return o;}
-
-// ===== 设置界面 =====
-function initSetup(){
-  document.querySelectorAll('#scriptToggle button').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      document.querySelectorAll('#scriptToggle button').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');curScript=btn.dataset.script;
-    });
-  });
-  const grid=document.getElementById('rowGrid');grid.innerHTML='';
-  RI.forEach(row=>{
-    const item=document.createElement('div');
-    item.className='row-item'+(selRows.has(row.id)?' selected':'');
-    item.dataset.row=row.id;
-    item.innerHTML='<div class="row-check">✓</div><div class="row-label">'+row.name+'<small>'+row.pv+'</small></div>';
-    item.addEventListener('click',()=>{
-      item.classList.toggle('selected');
-      if(item.classList.contains('selected'))selRows.add(row.id);else selRows.delete(row.id);
-    });
-    grid.appendChild(item);
-  });
-  updateBookBadge();
-}
-function selectAll(on){
-  document.querySelectorAll('.row-item').forEach(item=>{
-    if(on){item.classList.add('selected');selRows.add(item.dataset.row);}
-    else{item.classList.remove('selected');selRows.delete(item.dataset.row);}
-  });
-}
-
-function showScreen(id){['setupScreen','testScreen','resultScreen','mistakeBookScreen'].forEach(s=>document.getElementById(s).classList.add('hidden'));document.getElementById(id).classList.remove('hidden');}
-function goSetup(){showScreen('setupScreen');updateBookBadge();}
-
-// ===== 测试逻辑 =====
-function startTest(){
-  if(selRows.size===0){alert('请至少选择一行！');return;}
-  questions=[];
-  KD.filter(k=>selRows.has(k.r)).forEach(k=>{
-    if(curScript==='hiragana'||curScript==='both') questions.push({char:k.h,type:'hiragana',answers:k.a});
-    if(curScript==='katakana'||curScript==='both') questions.push({char:k.k,type:'katakana',answers:k.a});
-  });
-  shuffle(questions);
-  curIdx=0;correct=0;wrong=0;curMistakes=[];answered=false;practiceMode=false;mastered=0;
-  document.getElementById('masteredWrap').classList.add('hidden');
-  document.getElementById('correctCount').textContent=0;
-  document.getElementById('wrongCount').textContent=0;
-  showScreen('testScreen');showQ();
-}
-
-function startMistakePractice(){
-  const list=getBookList();
-  if(list.length===0){alert('错题本是空的！');return;}
-  questions=list.map(m=>({char:m.char,type:m.type,answers:m.answers}));
-  shuffle(questions);
-  curIdx=0;correct=0;wrong=0;curMistakes=[];answered=false;practiceMode=true;mastered=0;
-  document.getElementById('masteredWrap').classList.remove('hidden');
-  document.getElementById('masteredCount').textContent=0;
-  document.getElementById('correctCount').textContent=0;
-  document.getElementById('wrongCount').textContent=0;
-  showScreen('testScreen');showQ();
-}
-
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
-
-function showQ(){
-  if(curIdx>=questions.length){showResults();return;}
-  answered=false;curKana=questions[curIdx];
-  document.getElementById('kanaDisplay').textContent=curKana.char;
-  const badge=document.getElementById('kanaTypeBadge');
-  if(practiceMode){
-    badge.textContent='错题练习';badge.className='kana-type-badge badge-practice';
-  }else{
-    badge.textContent=curKana.type==='hiragana'?'ひらがな':'カタカナ';
-    badge.className='kana-type-badge '+(curKana.type==='hiragana'?'badge-hira':'badge-kata');
-  }
-  const input=document.getElementById('romajiInput');
-  input.value='';input.className='';input.disabled=false;input.focus();
-  document.getElementById('feedback').textContent='';
-  document.getElementById('feedback').className='feedback';
-  document.getElementById('nextBtn').classList.add('hidden');
-  updateProg();
-}
-
-function checkAnswer(){
-  if(answered)return;
-  const input=document.getElementById('romajiInput');
-  const ans=input.value.trim().toLowerCase();
-  if(!ans)return;
-  answered=true;input.disabled=true;
-  const ok=curKana.answers.includes(ans);
-  const fb=document.getElementById('feedback');
-
-  if(ok){
-    correct++;input.className='correct';
-    if(practiceMode){
-      const wasMastered=recordCorrect(curKana.char,curKana.type);
-      if(wasMastered){
-        mastered++;
-        document.getElementById('masteredCount').textContent=mastered;
-        fb.textContent='⭕ 正确！🎉 已掌握，已移出错题本！';fb.className='feedback correct';
-      }else{
-        fb.textContent='⭕ 正确！继续加油！';fb.className='feedback correct';
-      }
-    }else{
-      fb.textContent='⭕ 正确！';fb.className='feedback correct';
-    }
-  }else{
-    wrong++;input.className='wrong';
-    fb.textContent='❌ 错误… 正确答案: '+curKana.answers[0];fb.className='feedback wrong';
-    if(!practiceMode){
-      addMistake(curKana.char,curKana.type,curKana.answers);
-    }else{
-      addMistake(curKana.char,curKana.type,curKana.answers);
-      // 错了放回队列末尾
-      questions.push({char:curKana.char,type:curKana.type,answers:curKana.answers});
-    }
-    curMistakes.push({char:curKana.char,type:curKana.type,userAnswer:ans,correctAnswer:curKana.answers[0],allAnswers:curKana.answers});
-  }
-  document.getElementById('correctCount').textContent=correct;
-  document.getElementById('wrongCount').textContent=wrong;
-  document.getElementById('nextBtn').classList.remove('hidden');
-  document.getElementById('nextBtn').focus();
-}
-
-function nextQuestion(){curIdx++;showQ();}
-function skipQuestion(){
-  if(!answered){
-    wrong++;curMistakes.push({char:curKana.char,type:curKana.type,userAnswer:'（跳过）',correctAnswer:curKana.answers[0],allAnswers:curKana.answers});
-    if(practiceMode) questions.push({char:curKana.char,type:curKana.type,answers:curKana.answers});
-    document.getElementById('wrongCount').textContent=wrong;
-  }
-  curIdx++;showQ();
-}
-function updateProg(){
-  const t=questions.length;
-  document.getElementById('progressFill').style.width=(t>0?curIdx/t*100:0)+'%';
-  document.getElementById('progressText').textContent=(curIdx+1)+' / '+t;
-}
-function endTest(){if(confirm('确定要结束测试吗？'))showResults();}
-
-// ===== 结果 =====
-function showResults(){
-  showScreen('resultScreen');
-  const total=correct+wrong;
-  const pct=total>0?Math.round(correct/total*100):0;
-  document.getElementById('resultTitle').textContent=practiceMode?'错题练习结果':'测试结果';
-  document.getElementById('resultScore').textContent=pct+'%';
-  document.getElementById('resultScore').style.color=pct>=80?'var(--success)':pct>=50?'#f39c12':'var(--danger)';
-
-  let label;
-  if(practiceMode){
-    label=pct===100?'🎉 全部正确！':pct>=80?'😊 做得很好！':pct>=50?'📈 继续加油！':'💪 别灰心，再来一次！';
-    if(mastered>0) label+=' 已掌握 '+mastered+' 个！';
-  }else{
-    label=pct===100?'🎉 完美！太棒了！':pct>=80?'😊 做得很好！继续加油！':pct>=50?'📈 还不错，再接再厉！':'💪 多多练习，你一定行！';
-  }
-  document.getElementById('resultLabel').textContent=label;
-  document.getElementById('resCorrect').textContent=correct;
-  document.getElementById('resWrong').textContent=wrong;
-  document.getElementById('resTotal').textContent=total;
-
-  const sec=document.getElementById('mistakesSection'),list=document.getElementById('mistakeList');
-  list.innerHTML='';
-  if(curMistakes.length>0){
-    sec.classList.remove('hidden');
-    curMistakes.forEach(m=>{
-      const d=document.createElement('div');d.className='mistake-item';
-      d.innerHTML='<div class="mk-char">'+m.char+'</div><div class="mk-info"><div>你的回答: <strong>'+m.userAnswer+'</strong></div><div>正确答案: <strong>'+m.correctAnswer+'</strong>'+(m.allAnswers.length>1?' <small>('+m.allAnswers.join(' / ')+')</small>':'')+'</div><div><small>'+(m.type==='hiragana'?'ひらがな':'カタカナ')+'</small></div></div>';
-      list.appendChild(d);
-    });
-  }else{sec.classList.add('hidden');}
-
-  // 错题本按钮
-  const pb=document.getElementById('resPracticeBtn');
-  if(getBookCount()>0){pb.classList.remove('hidden');pb.textContent='📚 练习错题 ('+getBookCount()+')';}
-  else pb.classList.add('hidden');
-}
-
-function restartSame(){
-  shuffle(questions);curIdx=0;correct=0;wrong=0;curMistakes=[];answered=false;mastered=0;
-  if(practiceMode){document.getElementById('masteredCount').textContent=0;}
-  document.getElementById('correctCount').textContent=0;document.getElementById('wrongCount').textContent=0;
-  showScreen('testScreen');showQ();
-}
-
-// ===== 错题本界面 =====
-function openMistakeBook(){
-  showScreen('mistakeBookScreen');
-  renderBookList();
-}
-function renderBookList(){
-  const list=getBookList();
-  const container=document.getElementById('bookList');
-  const stats=document.getElementById('bookStats');
-  const btn=document.getElementById('bookPracticeBtn');
-
-  stats.innerHTML='共 <span>'+list.length+'</span> 道错题';
-
-  if(list.length===0){
-    container.innerHTML='<div class="book-empty"><div class="empty-icon">🎉</div>错题本是空的，太棒了！</div>';
-    btn.style.display='none';return;
-  }
-  btn.style.display='';
-
-  container.innerHTML='';
-  list.forEach(m=>{
-    const d=document.createElement('div');d.className='book-item';
-    const typeTag=m.type==='hiragana'?'<span class="tag tag-hira">ひらがな</span>':'<span class="tag tag-kata">カタカナ</span>';
-    d.innerHTML=
-      '<div class="bi-char">'+m.char+'</div>'+
-      '<div class="bi-info">'+
-        '<div class="bi-romaji">'+m.answers.join(' / ')+'</div>'+
-        '<div class="bi-meta">'+
-          typeTag+
-          '<span>错误 '+m.wrongCount+' 次</span>'+
-          '<span>掌握进度 <span class="streak-dots">'+streakDots(m.streak)+'</span></span>'+
-          '<span>'+timeAgo(m.lastTime)+'</span>'+
-        '</div>'+
-      '</div>'+
-      '<button class="bi-remove" title="移除">✕</button>';
-    d.querySelector('.bi-remove').addEventListener('click',(e)=>{
-      e.stopPropagation();
-      if(confirm('确定移除 '+m.char+' ('+m.answers[0]+') ？')){
-        removeMistake(m.char,m.type);renderBookList();
-      }
-    });
-    container.appendChild(d);
-  });
-}
-function clearAllMistakes(){
-  if(confirm('确定要清空整个错题本吗？此操作不可撤销！')){clearBook();renderBookList();}
-}
-
-// ===== 键盘 =====
-document.getElementById('romajiInput').addEventListener('keydown',function(e){
-  if(e.key==='Enter'){e.preventDefault();answered?nextQuestion():checkAnswer();}
-});
-
-// ===== 启动 =====
-initSetup();
-</script>
+<script src="js/stroke-data.js"></script>
+<script src="js/kana-data.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
